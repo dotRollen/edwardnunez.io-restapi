@@ -1,38 +1,40 @@
-FROM python:3.6-alpine
+FROM python:3.7-alpine as base
 
-RUN adduser -D devblog
+FROM base as builder
+
+RUN apk update \
+ && apk upgrade
+
+# Add and switch to user for application security
+RUN adduser -D -g /bin/bash devblog
+USER devblog
 
 # Change default directory
 WORKDIR /home/devblog
 
-# Create virtual environment
-# Upgrade PIP in virtual environment to latest version
-# Install requirements
-COPY requirements requirements
-RUN python -m venv venv
-RUN venv/bin/pip install --upgrade pip
-RUN venv/bin/pip install -r requirements/dev.txt
+COPY --chown=devblog . /home/devblog
+
+# Create virtual enviornment and folders for volume with user
+RUN python -m venv env \
+ && env/bin/pip install --upgrade pip \
+ && mkdir wheelhouse build reports cache \
+ && chmod +x scripts/dev.sh
+
+# PIP environment variable (NOTE: must be set after install wheel)
+ENV WHEELHOUSE=/home/devblog/wheelhouse \
+    PIP_WHEEL_DIR=/home/devblog/wheelhouse \
+    PIP_FIND_LINKS=/home/devblog/wheelhouse \
+    XDG_CACHE_HOME=/home/devblog/cache 
 
 # OUTPUT: Build artefacts (Wheels) are output here
-VOLUME /wheelhouse
+VOLUME /home/devblog/wheelhouse
 
 # OUTPUT: Build cache
-VOLUME /build
+VOLUME /home/devblog/build
 
 # OUTPUT: Test reports are output here
-VOLUME /reports
+VOLUME /home/devblog/reports
 
-COPY app app
-COPY migrations migrations
-COPY devblog.py config.py boot.sh ./
-RUN chmod +x boot.sh
-
-ENV FLASK_APP devblog.py
-
-RUN chown -R devblog:devblog ./
-USER devblog
-
+# Set defaults for entrypoint and command string
 EXPOSE 5000
-ENTRYPOINT ["./boot.sh"]
-
-LABEL application=devblog
+ENTRYPOINT ["./scripts/dev.sh"]

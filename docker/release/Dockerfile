@@ -1,24 +1,19 @@
-FROM python:3.6-alpine
+FROM python:3.7-alpine
 
-RUN adduser -D devblog
-
-WORKDIR /home/devblog
-
-COPY requirements requirements
-RUN python -m venv venv
-RUN venv/bin/pip install --upgrade pip
-RUN venv/bin/pip install -r requirements/prod.txt
-
-
-COPY app app
-COPY migrations migrations
-COPY devblog.py config.py boot.sh ./
-RUN chmod +x boot.sh
-
-ENV FLASK_APP devblog.py
-
-RUN chown -R devblog:devblog ./
+# Add and switch to user for application security
+RUN adduser -D -g /bin/bash devblog
 USER devblog
 
+# Change default directory
+WORKDIR /home/devblog
+
+COPY --chown=devblog wheels /wheelhouse
+
+RUN python -m venv env \
+ && . env/bin/activate \
+ && pip install --no-index -f /wheelhouse devblog \
+ && chmod +x scripts/boot.sh
+
+# Set defaults for entrypoint and command string
 EXPOSE 5000
-ENTRYPOINT ["./boot.sh"]
+ENTRYPOINT ["./dev.sh"]
