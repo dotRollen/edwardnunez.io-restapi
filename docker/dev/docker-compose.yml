@@ -1,0 +1,46 @@
+version: "3"
+
+volumes:
+  build:
+    driver: local
+  cache:
+    external: true
+
+services:
+  test: &source
+    build:
+      context: ../../
+      dockerfile: docker/dev/Dockerfile
+    image: dotrollen/devblog:dev
+    depends_on: 
+      - mongodb
+    volumes:
+      - cache:/home/devblog/cache
+      - build:/home/devblog/build
+    env_file: ../../.env
+    command: [ "flask", "test", "--coverage" ]
+
+  builder:
+    <<: *source
+    volumes:
+      - build:/home/devblog/build
+      - ../../wheels:/home/devblog/wheelhouse
+    entrypoint: "entrypoint.sh"
+    command: ["pip", "wheel", "--no-index", "-f /build", "devblog"]
+
+  web:
+    <<: *source
+    depends_on: 
+      - mongodb
+    volumes:
+      - cache:/home/devblog/cache
+      - build:/home/devblog/build
+    ports:
+      - "5000:5000"
+    env_file: ../../.env
+    command: [ "flask", "run", "--host=0.0.0.0" ]
+
+  mongodb:
+    image: mongo:4.0.0
+    restart: always
+    env_file: ../../.env
