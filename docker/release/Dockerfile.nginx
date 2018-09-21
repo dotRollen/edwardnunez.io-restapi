@@ -1,0 +1,4 @@
+FROM nginx:latest
+
+# Copy devblog nginx configuration file
+COPY devblog.conf /etc/nginx/conf.d/devblog.conf
