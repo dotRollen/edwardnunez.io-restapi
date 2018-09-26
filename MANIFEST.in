@@ -1,0 +1,3 @@
+graft restapi/app/templates
+graft restapi/app/static
+global-exclude *.pyc
