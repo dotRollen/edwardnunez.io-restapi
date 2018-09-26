@@ -1,5 +1,5 @@
 {
-    "name": "frontend",
+    "name": "frontend-express",
     "version": "1.0.0",
     "homepage": "https://edwardnunez.io",
     "author": { 
@@ -8,7 +8,7 @@
       "url" : "https://linkedin.com/in/edwardnunez"
       },
     "descripton": "",
-    "license": "ISC",
+    "license": "",
     "repository": {
       "type" : "git",
       "url" : "https://github.com/dotRollen/edwardnunez.io"
