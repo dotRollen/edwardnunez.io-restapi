@@ -1,1 +1,2 @@
-web: gunicorn backend.manage:app
+frontend: npm run server
+backend: gunicorn backend.manage:app

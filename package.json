@@ -1,11 +1,20 @@
 {
-    "name": "root",
+    "name": "frontend",
     "version": "1.0.0",
-    "description": "",
+    "homepage": "https://edwardnunez.io",
+    "author": { 
+      "name" : "Edward Nunez",
+      "email" : "edwardnnz@gmail.com",
+      "url" : "https://linkedin.com/in/edwardnunez"
+      },
+    "descripton": "",
+    "license": "",
+    "repository": {
+      "type" : "git",
+      "url" : "https://github.com/dotRollen/edwardnunez.io"
+    },
     "main": "frontend/package.json",
     "scripts": {
       "start": "cd frontend && npm start"
-    },
-    "author": "",
-    "license": "ISC"
+    }
   }

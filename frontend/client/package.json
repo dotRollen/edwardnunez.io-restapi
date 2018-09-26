@@ -1,0 +1,28 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "homepage": "https://edwardnunez.io",
+  "author": { 
+    "name" : "Edward Nunez",
+    "email" : "edwardnnz@gmail.com",
+    "url" : "https://linkedin.com/in/edwardnunez"
+    },
+  "descripton": "",
+  "license": "",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/dotRollen/edwardnunez.io"
+  },
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-scripts": "1.1.5"
+  },
+  "scripts": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-scripts": "1.0.14",
+    "react-router-dom": "^4.1.2",
+    "axios": "^0.16.2"
+  }
+}
