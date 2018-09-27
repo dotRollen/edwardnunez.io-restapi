@@ -1,5 +1,11 @@
 from flask import Blueprint
 
-bp = Blueprint('main', __name__)
+main = Blueprint('main', __name__)
 
-from app.main import routes
+from . import views, errors
+from backend.app.models.auth import Permission
+
+
+@main.app_context_processor
+def inject_permissions():
+    return dict(Permission=Permission)
