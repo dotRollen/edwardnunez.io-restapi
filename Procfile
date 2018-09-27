@@ -1,2 +1,2 @@
-frontend: npm run server
-backend: gunicorn backend.manage:app
+webjs: npm run server
+webpy: gunicorn backend.manage:app
