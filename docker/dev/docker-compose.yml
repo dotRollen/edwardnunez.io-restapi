@@ -1,7 +1,7 @@
 version: "3"
 
 volumes:
-  build:
+  build-py:
     driver: local
   cache:
     external: true
@@ -16,17 +16,17 @@ services:
       - mongodb
     volumes:
       - cache:/home/backend/cache
-      - build:/home/backend/build
+      - build-py:/home/backend/build-py
     env_file: ../../.env
     command: [ "flask", "test", "--coverage" ]
 
   builder:
     <<: *source
     volumes:
-      - build:/home/backend/build
+      - build-py:/home/backend/build-py
       - ../../wheels:/home/backend/wheelhouse
     entrypoint: "entrypoint.sh"
-    command: ["pip", "wheel", "--no-index", "-f /build", "backend"]
+    command: ["pip", "wheel", "--no-index", "-f /build-py", "backend"]
 
   web:
     <<: *source
@@ -34,7 +34,7 @@ services:
       - mongodb
     volumes:
       - cache:/home/backend/cache
-      - build:/home/backend/build
+      - build-py:/home/backend/build-py
     ports:
       - "5000:5000"
     env_file: ../../.env

@@ -119,7 +119,7 @@ node_modules
 coverage
 
 # production
-build
+build-py
 
 # misc
 .DS_Store
