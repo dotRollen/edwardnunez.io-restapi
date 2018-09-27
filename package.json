@@ -15,7 +15,7 @@
   },
   "main": "frontend/package.json",
   "scripts": {
-    "start": "cd frontend && npm start",
-    "server": "cd frontend && npm server"
+    "start": "cd frontend && yarn start",
+    "server": "cd frontend && yarn server"
   }
 }
