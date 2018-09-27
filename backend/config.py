@@ -13,7 +13,7 @@ class Config(object):
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     DEVBLOG_MAIL_SUBJECT_PREFIX = "[DEVBLOG]"
-    DEVBLOG_MAIL_SENDER = "DEVBLOG Admin <IntegrationAutomationServices@shi.com>"
+    DEVBLOG_MAIL_SENDER = "DEVBLOG Admin <devdebugging@gmail.com>"
     DEVBLOG_ADMIN = os.environ.get("DEVBLOG_ADMIN")
     SSL_REDIRECT = False
 
