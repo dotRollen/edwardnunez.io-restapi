@@ -17,5 +17,9 @@
   "scripts": {
     "server": "cd frontend && yarn server",
     "installDeps": "cd frontend && yarn installDeps"
+  },
+  "engines": {
+    "node": "10.11.0",
+    "yarn": "1.9.4"
   }
 }
