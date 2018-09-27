@@ -12,9 +12,9 @@ class Config(object):
     MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS") is not None
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
-    DEVBLOG_MAIL_SUBJECT_PREFIX = "[DEVBLOG]"
-    DEVBLOG_MAIL_SENDER = "DEVBLOG Admin <devdebugging@gmail.com>"
-    DEVBLOG_ADMIN = os.environ.get("DEVBLOG_ADMIN")
+    BACKEND_MAIL_SUBJECT_PREFIX = "[BACKEND]"
+    BACKEND_MAIL_SENDER = "Ed's API Admin <devdebugging@gmail.com>"
+    BACKEND_ADMIN = os.environ.get("BACKEND_ADMIN")
     SSL_REDIRECT = False
 
     @staticmethod
@@ -25,7 +25,7 @@ class Config(object):
 class DevelopmentConfig(Config):
     DEBUG = True
     MONGODB_HOST = os.environ.get("DEV_MONGODB_HOST") or "localhost"
-    MONGODB_DB = os.environ.get("DEV_MONGODB_DATABASE") or 'DEVBLOGDev'
+    MONGODB_DB = os.environ.get("DEV_MONGODB_DATABASE") or 'BackendDev'
     MONGODB_USER = os.environ.get("DEV_MONGODB_USER")
     MONGODB_PASSWORD = os.environ.get("DEV_MONGODB_PASSWORD")
     MONGODB_PORT = os.environ.get("DEV_MONGODB_PORT") or 27017
@@ -39,7 +39,7 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     MONGODB_HOST = os.environ.get("REL_MONGODB_HOST") or "localhost"
-    MONGODB_DB = os.environ.get("REL_MONGODB_DATABASE") or "DEVBLOGRelease"
+    MONGODB_DB = os.environ.get("REL_MONGODB_DATABASE") or "BACKENDRelease"
     MONGODB_USER = os.environ.get("REL_MONGODB_USER")
     MONGODB_PASSWORD = os.environ.get("REL_MONGODB_PASSWORD")
     MONGODB_PORT = os.environ.get("REL_MONGODB_PORT")
@@ -60,9 +60,9 @@ class ProductionConfig(Config):
                 secure = ()
         mail_handler = SMTPHandler(
             mailhost=(cls.MAIL_SERVER, cls.MAIL_PORT),
-            fromaddr=cls.DEVBLOG_MAIL_SENDER,
-            toaddrs=[cls.DEVBLOG_ADMIN],
-            subject=cls.DEVBLOG_MAIL_SUBJECT_PREFIX + " Application Error",
+            fromaddr=cls.BACKEND_MAIL_SENDER,
+            toaddrs=[cls.BACKEND_ADMIN],
+            subject=cls.BACKEND_MAIL_SUBJECT_PREFIX + " Application Error",
             credentials=credentials,
             secure=secure,
         )

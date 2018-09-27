@@ -6,13 +6,13 @@ RUN apk update \
  && apk upgrade
 
 # Add and switch to user for application security
-RUN adduser -D -g /bin/bash devblog
-USER devblog
+RUN adduser -D -g /bin/bash backend
+USER backend
 
 # Change default directory
-WORKDIR /home/devblog
+WORKDIR /home/backend
 
-COPY --chown=devblog . /home/devblog
+COPY --chown=backend . /home/backend
 
 # Create virtual enviornment and folders for volume with user
 RUN python -m venv env \
@@ -21,19 +21,19 @@ RUN python -m venv env \
  && chmod +x scripts/dev.sh
 
 # PIP environment variable (NOTE: must be set after install wheel)
-ENV WHEELHOUSE=/home/devblog/wheelhouse \
-    PIP_WHEEL_DIR=/home/devblog/wheelhouse \
-    PIP_FIND_LINKS=/home/devblog/wheelhouse \
-    XDG_CACHE_HOME=/home/devblog/cache 
+ENV WHEELHOUSE=/home/backend/wheelhouse \
+    PIP_WHEEL_DIR=/home/backend/wheelhouse \
+    PIP_FIND_LINKS=/home/backend/wheelhouse \
+    XDG_CACHE_HOME=/home/backend/cache 
 
 # OUTPUT: Build artefacts (Wheels) are output here
-VOLUME /home/devblog/wheelhouse
+VOLUME /home/backend/wheelhouse
 
 # OUTPUT: Build cache
-VOLUME /home/devblog/build
+VOLUME /home/backend/build
 
 # OUTPUT: Test reports are output here
-VOLUME /home/devblog/reports
+VOLUME /home/backend/reports
 
 # Set defaults for entrypoint and command string
 EXPOSE 5000

@@ -9,11 +9,11 @@ services:
     build:
       context: ../../
       dockerfile: docker/release/Dockerfile
-    image: dotrollen/devblog:latest
+    image: dotrollen/backend:latest
     depends_on: 
       - mongodb
     volumes:
-      - webroot:/var/www/devblog
+      - webroot:/var/www/backend
     env_file: ../../.env
     ports:
       - "5000:5000"
@@ -28,7 +28,7 @@ services:
       ports:
         - "8000:8000"
       volumes:
-        - webroot:/var/www/devblog
+        - webroot:/var/www/backend
     
   mongodb:
     image: mongo:4.0.0

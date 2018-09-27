@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app, url_for
 from flask_login import UserMixin, AnonymousUserMixin
-from source.app import db, login_manager
+from backend.app import db, login_manager
 
 
 class Permission:
@@ -87,7 +87,7 @@ class User(UserMixin, db.Document):
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
         if self.role is None:
-            if self.email == current_app.config["KITSU_ADMIN"]:
+            if self.email == current_app.config["BACKEND_ADMIN"]:
                 self.role = Role.objects(name="Administrator").first()
             if self.role is None:
                 self.role = Role.objects(default=True).first()

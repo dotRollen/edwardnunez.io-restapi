@@ -5,24 +5,28 @@ from backend.app.email import send_email
 from backend.app.models.auth import User
 
 
-@api.route('/users/', methods=['GET', 'POST'])
+@api.route('/users', methods=['GET', 'POST'])
 def register():
-    email = request.json.get('email')
-    username = request.json.get('username')
-    password = request.json.get('password')
-    if email is None or username is None or password is None:
-        abort(400)    # missing arguments
-    if User.objects(email=email).first() is not None:
-        abort(400)    # existing user
-    user = User(
-        email=email,
-        username=username)
-    user.password = password
-    token = user.generate_confirmation_token()
-    send_email(user.email, 'Confirm Your Account',
-               'auth/email/confirm', user=user, token=token)
-    return (jsonify({'username': user.username}), 201,
-            {'Location': url_for('get_user', id=user.id, _external=True)})
+    if request.method == 'POST':
+        email = request.json.get('email')
+        return (
+            jsonify({
+                'message': f'Received request for {email} registration!',
+                'url': 'todo'
+            }),
+            201,
+        )
+    else:
+        users = User.objects()
+        users_list = []
+        for user in users:
+            users_list.append(user.to_json())
+        return (
+            jsonify({
+                'users': users_list
+            }),
+            201,
+        )
 
 
 @api.route('/users/<string:id>')

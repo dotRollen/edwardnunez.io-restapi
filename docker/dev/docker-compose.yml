@@ -11,30 +11,30 @@ services:
     build:
       context: ../../
       dockerfile: docker/dev/Dockerfile
-    image: dotrollen/devblog:dev
+    image: dotrollen/backend:dev
     depends_on: 
       - mongodb
     volumes:
-      - cache:/home/devblog/cache
-      - build:/home/devblog/build
+      - cache:/home/backend/cache
+      - build:/home/backend/build
     env_file: ../../.env
     command: [ "flask", "test", "--coverage" ]
 
   builder:
     <<: *source
     volumes:
-      - build:/home/devblog/build
-      - ../../wheels:/home/devblog/wheelhouse
+      - build:/home/backend/build
+      - ../../wheels:/home/backend/wheelhouse
     entrypoint: "entrypoint.sh"
-    command: ["pip", "wheel", "--no-index", "-f /build", "devblog"]
+    command: ["pip", "wheel", "--no-index", "-f /build", "backend"]
 
   web:
     <<: *source
     depends_on: 
       - mongodb
     volumes:
-      - cache:/home/devblog/cache
-      - build:/home/devblog/build
+      - cache:/home/backend/cache
+      - build:/home/backend/build
     ports:
       - "5000:5000"
     env_file: ../../.env

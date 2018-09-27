@@ -1,7 +1,7 @@
 # Project variables
-PROJECT_NAME ?= devblog
+PROJECT_NAME ?= backend
 ORG_NAME ?= dotrollen
-REPO_NAME ?= devblog
+REPO_NAME ?= backend
 
 # Filenames
 DEV_COMPOSE_FILE := docker/dev/docker-compose.yml

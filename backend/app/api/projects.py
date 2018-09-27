@@ -5,7 +5,7 @@ from .errors import forbidden
 from backend.app.models.projects import Projects
 
 
-@api.route('/projects/')
+@api.route('/projects')
 def get_groups():
     projects = Projects.objects()
     return jsonify({

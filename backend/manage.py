@@ -79,11 +79,12 @@ def deploy():
     # create administrator
     r = Role.objects(name="Administrator").first()
     u = User(
-        email=os.getenv('DEVBLOG_ADMIN'),
+        email=os.getenv('BACKEND_ADMIN'),
+        username=os.getenv('BACKEND_ADMIN_USERNAME'),
         role=r,
         confirmed=True
         )
-    u.password = os.getenv('DEVBLOG_ADMIN_PASSWORD')
+    u.password = os.getenv('BACKEND_ADMIN_PASSWORD')
     u.can(Permission.FOLLOW)
     u.can(Permission.COMMENT)
     u.can(Permission.WRITE)
