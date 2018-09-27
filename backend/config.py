@@ -38,11 +38,9 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
-    MONGODB_HOST = os.environ.get("REL_MONGODB_HOST") or "localhost"
-    MONGODB_DB = os.environ.get("REL_MONGODB_DATABASE") or "BACKENDRelease"
-    MONGODB_USER = os.environ.get("REL_MONGODB_USER")
-    MONGODB_PASSWORD = os.environ.get("REL_MONGODB_PASSWORD")
-    MONGODB_PORT = os.environ.get("REL_MONGODB_PORT")
+    MONGODB_SETTINGS = {
+        'host': os.environ.get("PROD_MONGODB_URI"),
+    }
 
     @classmethod
     def init_app(cls, app):
