@@ -15,6 +15,7 @@
   },
   "main": "frontend/package.json",
   "scripts": {
-    "server": "cd frontend && yarn server"
+    "server": "cd frontend && yarn server",
+    "installDeps": "cd frontend && yarn installDeps"
   }
 }
