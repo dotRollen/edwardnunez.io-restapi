@@ -1,3 +1,2 @@
-release: yarn installDeps
-web: yarn run server
-api: gunicorn backend.manage:app
+release: flask deploy
+web: gunicorn backend.manage:app
