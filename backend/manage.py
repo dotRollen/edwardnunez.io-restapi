@@ -19,6 +19,7 @@ import sys
 import click
 from backend.app import create_app, db
 from backend.app.models.auth import User, Role, Permission
+from mongoengine import errors as mongoerrors
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -74,20 +75,28 @@ def profile(length, profile_dir):
 def deploy():
     """Run deployment tasks."""
     # create or update user roles
-    Role.insert_roles()
+    try: 
+        Role.insert_roles()
+    except mongoerrors.NotUniqueError:
+        print("Message: Roles already exist.");
 
     # create administrator
-    r = Role.objects(name="Administrator").first()
-    u = User(
+    admin_role = Role.objects(name="Administrator").first()
+
+    admin = User(
         email=os.getenv('BACKEND_ADMIN'),
         username=os.getenv('BACKEND_ADMIN_USERNAME'),
-        role=r,
+        role=admin_role,
         confirmed=True
         )
-    u.password = os.getenv('BACKEND_ADMIN_PASSWORD')
-    u.can(Permission.FOLLOW)
-    u.can(Permission.COMMENT)
-    u.can(Permission.WRITE)
-    u.can(Permission.MODERATE)
-    u.can(Permission.ADMIN)
-    u.save()
+    admin.password = os.getenv('BACKEND_ADMIN_PASSWORD')
+    admin.can(Permission.FOLLOW)
+    admin.can(Permission.COMMENT)
+    admin.can(Permission.WRITE)
+    admin.can(Permission.MODERATE)
+    admin.can(Permission.ADMIN)
+
+    try:
+        admin.save()
+    except mongoerrors.NotUniqueError:
+        print("Message: Administrator already exists.")
