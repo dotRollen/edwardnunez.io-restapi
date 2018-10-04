@@ -39,7 +39,7 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     MONGODB_SETTINGS = {
-        'host': os.environ.get("PROD_MONGODB_URI"),
+        'host': os.environ.get("MONGODB_URI"),
     }
 
     @classmethod
