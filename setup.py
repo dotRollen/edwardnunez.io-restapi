@@ -9,12 +9,12 @@ with io.open('backend/__init__.py', 'rt', encoding='utf8') as f:
     version = re.search(r'__version__ = \'(.*?)\'', f.read()).group(1)
 
 setup(
-    name='backend-core',
+    name='edwardnunez-restapi',
     version=version,
-    url='https://github.com/dotRollen/edwardnunez.io',
+    url='https://github.com/dotRollen/edwardnunez.io-restapi',
     maintainer='Edward Nunez',
     maintainer_email='edwardnnz@gmail.com',
-    description='Personal blogging and portfolio web page.',
+    description='Personal RESTful API for my web site.',
     long_description=readme,
     packages=find_packages(),
     include_package_data=True,
