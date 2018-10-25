@@ -1,5 +1,9 @@
 #!/bin/bash
-. /usr/local/kitsu/env/bin/activate
+. /home/ubuntu/app-backend/env/bin/activate
+
+NAME="web_backend"
+
+echo "Starting $NAME as `whoami`"
 
 while true; do
     flask deploy
