@@ -102,7 +102,7 @@ class DockerConfig(ProductionConfig):
 config = {
     "development": DevelopmentConfig,
     "testing": TestingConfig,
-    "release": ProductionConfig,
+    "production": ProductionConfig,
     "docker": DockerConfig,
     "heroku": HerokuConfig,
     "default": DevelopmentConfig,
